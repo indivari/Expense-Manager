@@ -1,13 +1,65 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.sidebar {
+  background-color: rgb(204, 199, 199);
+  width: 200px;
+  height: 800px;
+}
+.sidebar ul {
+  list-style: none;
+  background-color: rgb(204, 199, 199);
+  padding: 0;
+  font-weight: bold;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+li a {
+  display: block;
+  text-decoration: none;
+  color: black;
+  padding: 8px 8px;
+  background-color: rgb(150, 147, 147);
+  border: 1px solid black;
+}
+
+li a:hover {
+  background-color: rgb(230, 112, 131);
+  color: black;
+}
+
+.active {
+  background-color: rgb(230, 112, 131);
+  color: black;
+}
+
+.sidebar h2 {
+  margin-bottom: 100px;
+  padding-top: 25px;
+  background-color: rgb(204, 199, 199);
+  width: 200px;
+}
+
+.dashboard {
+  margin-left: 200px;
+  height: 400px;
+  text-align: center;
+}
+
+.expenses-container {
+  display: flex;
+  width: 600px;
+  height: 600px;
+  background-color: lightgrey;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  font-weight: bold;
 }
