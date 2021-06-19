@@ -1,6 +1,14 @@
 import React from 'react'
 
+type Expense = {
+  date: Date
+  category: string
+  amount: number
+}
+
 const Expenses = () => {
+  let exp: Expense[] = [{ date: new Date(), category: 'Lunch', amount: 50 }]
+
   return (
     <>
       <div className="expenses">
