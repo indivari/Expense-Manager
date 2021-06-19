@@ -1,0 +1,11 @@
+.App {
+  display: flex;
+}
+
+.PageContent {
+  padding: 100px;
+}
+
+.Sidebar {
+  padding: 40px;
+}

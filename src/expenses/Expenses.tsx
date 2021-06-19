@@ -1,4 +1,6 @@
 import React from 'react'
+import './expenses.css'
+import { PrimaryButton } from '../components'
 
 type Expense = {
   date: Date
@@ -12,7 +14,7 @@ const Expenses = () => {
   return (
     <>
       <div className="expenses">
-        <h1>Recent Expenses</h1>
+        <h2>Recent Expenses</h2>
       </div>
       <div className="expenses-container">
         <div className="row">
@@ -28,6 +30,9 @@ const Expenses = () => {
             <div className="amount-header">Amount Paid</div>
           </div>
         </div>
+      </div>
+      <div className="footer">
+        <PrimaryButton label="Add" />
       </div>
     </>
   )

@@ -32,6 +32,8 @@ li a:hover {
 .sidebar h2 {
   margin-bottom: 100px;
   padding-top: 25px;
+  color: rgb(230, 112, 131);
+  font-weight: bold;
   background-color: rgb(204, 199, 199);
   width: 200px;
 }
@@ -40,26 +42,4 @@ li a:hover {
   margin-left: 200px;
   height: 400px;
   text-align: center;
-}
-
-.expenses-container {
-  display: flex;
-  width: 600px;
-  height: 600px;
-  background-color: lightgrey;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
-  font-weight: bold;
 }

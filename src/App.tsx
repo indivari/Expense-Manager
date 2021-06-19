@@ -12,7 +12,7 @@ function App() {
       <div className="App">
         <Sidebar />
 
-        <div className="content">
+        <div className="PageContent">
           <Switch>
             <Route path="/dashboard">
               <Dashboard />

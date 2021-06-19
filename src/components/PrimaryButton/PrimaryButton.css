@@ -1,0 +1,10 @@
+.primary-button {
+  background: rgb(128, 214, 243);
+  font-weight: bold;
+  border: none;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+}
