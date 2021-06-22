@@ -1,0 +1,13 @@
+.row:nth-of-type(even) {
+  background: white;
+}
+
+.row:nth-of-type(odd) {
+  background: rgb(179, 180, 180);
+}
+
+.date,
+.category,
+.amount {
+  background-color: white;
+}
