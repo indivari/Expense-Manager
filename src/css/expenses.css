@@ -13,11 +13,11 @@
 }
 
 .row:nth-of-type(even) {
-  background: white;
+  background: rgb(255, 255, 255);
 }
 
 .row:nth-of-type(odd) {
-  background: rgb(128, 214, 243);
+  background: rgb(179, 180, 180);
 }
 
 .column {
@@ -35,4 +35,15 @@ h2 {
 .footer {
   text-align: right;
   padding-top: 20px;
+}
+
+.date-header,
+.category-header,
+.amount-header {
+  color: rgb(2, 2, 2);
+  background-color: rgb(178, 233, 247);
+}
+
+.inputRow {
+  margin-top: 20px;
 }
