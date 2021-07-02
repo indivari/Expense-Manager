@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import '../css/expenses.css'
 import { PrimaryButton } from '../components'
 import { IExpense } from './IExpense'
 import ExpenseTable from './ExpenseTable'
 import InputExpense from './InputExpense'
 
+
 const Expenses = () => {
   const [showInputForm, setShowInputForm] = useState(false)
+  const[expenses,setExpenses]=useState<IExpense[]>();
 
   let exp: IExpense[] = [
     { id: 1, date: new Date(), category: 'Lunch', amount: 50 },
@@ -14,6 +16,12 @@ const Expenses = () => {
     { id: 3, date: new Date(), category: 'Lunch', amount: 25 },
     { id: 4, date: new Date(), category: 'clothing', amount: 200 },
   ]
+
+  useEffect(() => {
+    fetch("http://localhost:3000/expenses")
+      .then(res => res.json())
+      .then(expenses => setExpenses(expenses))
+}, [])
 
   const handleAddItem = () => {
     setShowInputForm(true)
@@ -25,7 +33,7 @@ const Expenses = () => {
         <div className="expenses">
           <h2>Recent Expenses</h2>
         </div>
-        <ExpenseTable exp={exp} />
+        { expenses !== undefined? <ExpenseTable exp={expenses} />: <b>data not loaded</b> }
       </div>
       <div className="footer">
         <PrimaryButton label="Add" onClick={handleAddItem} />

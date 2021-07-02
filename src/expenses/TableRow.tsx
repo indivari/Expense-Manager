@@ -8,7 +8,7 @@ const TableRow = (props: { data: IExpense }) => {
     <div>
       <div className="row">
         <div className="column">
-          <div className="date">{props.data.date.toDateString()}</div>
+          <div className="date">{new Date(props.data.date).toDateString()}</div>
         </div>
 
         <div className="column">
