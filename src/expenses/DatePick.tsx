@@ -6,12 +6,16 @@ import 'react-datepicker/dist/react-datepicker.css'
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
-const DatePick = () => {
-  const [startDate, setStartDate] = useState<Date | null>(new Date())
+interface DatePickType {
+  selectedDate?: Date,
+  onChange(date: Date): void
+}
+
+const DatePick: React.FC<DatePickType> = ({ selectedDate: defaultDate, onChange }) => {
   return (
     <DatePicker
-      selected={startDate}
-      onChange={(date: Date | null) => setStartDate(date)}
+      selected={defaultDate}
+      onChange={(date: Date) => onChange(date)}
     />
   )
 }
