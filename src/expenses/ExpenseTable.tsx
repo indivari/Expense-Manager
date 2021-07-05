@@ -2,7 +2,12 @@ import React from 'react'
 import TableRow from './TableRow'
 import { IExpense } from './IExpense'
 
-const ExpenseTable = (props: { exp: IExpense[] }) => {
+
+interface ComponentProps {
+  onDelete: (id: string|undefined) => void;
+  exp:IExpense[]
+}
+const ExpenseTable:React.FC<ComponentProps> = ({exp,onDelete}) => {
   return (
     <>
       <div className="expenses-container">
@@ -18,10 +23,14 @@ const ExpenseTable = (props: { exp: IExpense[] }) => {
           <div className="column">
             <div className="amount-header">Amount Paid</div>
           </div>
+          <div className="column">
+            <div className="delete"></div>
+          </div>
         </div>
 
-        {props.exp.map((data: IExpense) => (
-          <TableRow data={data} />
+        {exp.map((data: IExpense) => (
+          <TableRow data={data} onDelete={(id)=>onDelete(id)}/>
+      
         ))}
       </div>
     </>
