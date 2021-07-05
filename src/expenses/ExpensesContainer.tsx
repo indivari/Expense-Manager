@@ -8,7 +8,8 @@ import InputExpense from './InputExpense'
 
 const ExpensesContainer = () => {
   const [showInputForm, setShowInputForm] = useState(false)
-  const[expenses,setExpenses]=useState<IExpense[]>();
+  const[expenses,setExpenses]=useState<IExpense[]>([]);
+  const [updated,setUpdated]=useState(false)
 
   let exp: IExpense[] = [
     { id: 1, date: new Date(), category: 'Lunch', amount: 50 },
@@ -43,10 +44,11 @@ const ExpensesContainer = () => {
       referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify(exp) // body data type must match "Content-Type" header
     });
-    const result = await response.json();
-    console.log(result)
-    
+    const savedExpense = await response.json();
+    console.log(savedExpense) 
 
+    const newExpenses = [ ...expenses, savedExpense]
+    setExpenses(newExpenses)
   }
 
   return (
