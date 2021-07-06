@@ -11,13 +11,6 @@ const ExpensesContainer = () => {
   const[expenses,setExpenses]=useState<IExpense[]>([]);
   const [updated,setUpdated]=useState(false)
 
-  let exp: IExpense[] = [
-    { id: 1, date: new Date(), category: 'Lunch', amount: 50 },
-    { id: 2, date: new Date(), category: 'travel', amount: 100 },
-    { id: 3, date: new Date(), category: 'Lunch', amount: 25 },
-    { id: 4, date: new Date(), category: 'clothing', amount: 200 },
-  ]
-
   useEffect(() => {
     fetch("http://localhost:3000/api/expenses")
       .then(res => res.json())
@@ -51,13 +44,31 @@ const ExpensesContainer = () => {
     setExpenses(newExpenses)
   }
 
+  const handleOnDelete=async(id:string|undefined):Promise<void>=>{
+    console.log("id received", id)
+    const response=await fetch("http://localhost:3000/api/expenses/"+id,{
+      method:'DELETE',
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'}
+    })
+
+    //const res=await response.json();
+   // console.log(res)
+    const filteredArray=expenses.filter((item:IExpense)=>item._id!==id)
+    setExpenses(filteredArray)
+
+  }
+
   return (
     <>
       <div>
         <div className="expenses">
           <h2>Recent Expenses</h2>
         </div>
-        { expenses !== undefined? <ExpenseTable exp={expenses} />: <b>data not loaded</b> }
+        { expenses !== undefined? <ExpenseTable exp={expenses} onDelete={(id)=>handleOnDelete(id)}/>: <b>data not loaded</b> }
       </div>
       <div className="footer">
         <PrimaryButton label="Add" onClick={handleAddItem}/>

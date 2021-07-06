@@ -2,10 +2,18 @@ import React from 'react'
 import '../css/expenses.css'
 import '../css/tableRow.css'
 import { IExpense } from './IExpense'
+import {DeleteButton} from '../components/DeleteButton'
 
-const TableRow = ({ data }: { data: IExpense }) => {
+
+interface ComponentProps {
+  onDelete: (id: string|undefined) => void;
+  data:IExpense
+}
+
+const TableRow :React.FC<ComponentProps>= ({ data ,onDelete}) => {
   const { category, amount } = data;
   const date = data.date? new Date(data.date).toDateString(): "";
+
 
   return (
     <div>
@@ -20,6 +28,12 @@ const TableRow = ({ data }: { data: IExpense }) => {
 
         <div className="column">
           <div className="amount">{amount}</div>
+        </div>
+        <div className="column">
+          <div className="delete">
+            <DeleteButton label="Delete" onClick={()=>onDelete(data._id)}/>
+          </div>
+
         </div>
       </div>
     </div>
