@@ -7,14 +7,14 @@ import 'react-datepicker/dist/react-datepicker.css'
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 interface DatePickType {
-  selectedDate?: Date,
+  value?: Date,
   onChange(date: Date): void
 }
 
-const DatePick: React.FC<DatePickType> = ({ selectedDate: defaultDate, onChange }) => {
+const DatePick: React.FC<DatePickType> = ({ value, onChange }) => {
   return (
     <DatePicker
-      selected={defaultDate}
+      selected={value}
       onChange={(date: Date) => onChange(date)}
     />
   )

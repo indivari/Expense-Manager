@@ -24,7 +24,7 @@ const InputExpense: React.FC<ComponentProps> = ({ onSave }) => {
       <div className="row">
         <div className="column">
           <div className="date-header">
-            <DatePick onChange={(date)=>setDate(date)} selectedDate={date}/>
+            <DatePick onChange={(date)=>setDate(date)} value={date}/>
           </div>
         </div>
 

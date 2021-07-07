@@ -26,10 +26,13 @@ const ExpenseTable:React.FC<ComponentProps> = ({exp,onDelete}) => {
           <div className="column">
             <div className="delete"></div>
           </div>
+          <div className="column">
+            <div className="edit"></div>
+          </div>
         </div>
 
         {exp.map((data: IExpense) => (
-          <TableRow data={data} onDelete={(id)=>onDelete(id)}/>
+          <TableRow expense={data} onDelete={(id)=>onDelete(id)}/>
       
         ))}
       </div>

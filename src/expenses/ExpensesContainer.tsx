@@ -55,8 +55,6 @@ const ExpensesContainer = () => {
         'Content-Type': 'application/json'}
     })
 
-    //const res=await response.json();
-   // console.log(res)
     const filteredArray=expenses.filter((item:IExpense)=>item._id!==id)
     setExpenses(filteredArray)
 
