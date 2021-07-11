@@ -9,11 +9,10 @@ import UpdateExpense from './UpdateExpense'
 
 interface ComponentProps {
   onDelete: (id: string | undefined) => void;
-  onUpdate:(updatedExp:IExpense)=>void;
   expense: IExpense;
 }
 
-const TableRow: React.FC<ComponentProps> = ({ expense, onDelete,onUpdate }) => {
+const TableRow: React.FC<ComponentProps> = ({ expense, onDelete }) => {
   const { category, amount } = expense;
   const date = expense.date ? new Date(expense.date).toDateString() : "";
   const [isUpdateMode, setIsUpdateMode] = useState(false)
@@ -47,7 +46,7 @@ const TableRow: React.FC<ComponentProps> = ({ expense, onDelete,onUpdate }) => {
         </div>}
 
       {isUpdateMode && <div>
-        <UpdateExpense onUpdate={(updatedExpense)=>onUpdate(updatedExpense)} expense={expense} />
+        <UpdateExpense  expense={expense} />
        </div>}
     </div>
   )

@@ -7,6 +7,7 @@ import InputExpense from './InputExpense'
 
 interface ExpensesContextType {
   expenses: IExpense[];
+  onUpdate?:(expense:IExpense)=>void
 }
 
 export const ExpensesContext = React.createContext<ExpensesContextType>({expenses:[]})
@@ -89,12 +90,12 @@ const ExpensesContainer = () => {
   }
 
   return (
-    <ExpensesContext.Provider value={{expenses}}>
+    <ExpensesContext.Provider value={{expenses,onUpdate:handleOnUpdate}}>
       <div>
         <div className="expenses">
           <h2>Recent Expenses</h2>
         </div>
-        { expenses !== undefined? <ExpenseTable onUpdate={(updatedExpense)=>handleOnUpdate(updatedExpense)} onDelete={(id)=>handleOnDelete(id)}/>: <b>data not loaded</b> }
+        { expenses !== undefined? <ExpenseTable onDelete={(id)=>handleOnDelete(id)}/>: <b>data not loaded</b> }
       </div>
       <div className="footer">
         <PrimaryButton label="Add" onClick={handleAddItem}/>

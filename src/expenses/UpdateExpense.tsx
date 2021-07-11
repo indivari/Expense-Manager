@@ -1,23 +1,25 @@
-import React,{ useState} from 'react'
+import React,{ useContext, useState} from 'react'
 import DatePick from './DatePick'
 import { IExpense } from './IExpense';
 import '../css/UpdateExpense.css';
+import { ExpensesContext } from './ExpensesContainer';
 
 
 interface ComponentProps {
     expense:IExpense
-    onUpdate: (exp: IExpense) => void;
     
   }
   
-const UpdateExpense:React.FC<ComponentProps>=({expense,onUpdate})=>{
+const UpdateExpense:React.FC<ComponentProps>=({expense})=>{
   const[category,setCategory]=useState(expense.category);
   const[amount,setAmount]=useState(expense.amount);
   const[date,setDate]=useState<Date>(expense.date? new Date(expense.date) : new Date());
 
+  const values=useContext(ExpensesContext)
+
 const handleOnUpdate=()=>{
-    const updatedExpense:IExpense={ _id: expense._id, date, category, amount}
-    onUpdate(updatedExpense)
+   const updatedExpense:IExpense={ _id: expense._id, date, category, amount}
+   values.onUpdate && values.onUpdate(updatedExpense)
 }
 
 return(        
