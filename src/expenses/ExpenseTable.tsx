@@ -5,9 +5,10 @@ import { IExpense } from './IExpense'
 
 interface ComponentProps {
   onDelete: (id: string|undefined) => void;
+  onUpdate:(updatedExpense:IExpense)=>void;
   exp:IExpense[]
 }
-const ExpenseTable:React.FC<ComponentProps> = ({exp,onDelete}) => {
+const ExpenseTable:React.FC<ComponentProps> = ({exp,onDelete,onUpdate}) => {
   return (
     <>
       <div className="expenses-container">
@@ -32,7 +33,7 @@ const ExpenseTable:React.FC<ComponentProps> = ({exp,onDelete}) => {
         </div>
 
         {exp.map((data: IExpense) => (
-          <TableRow expense={data} onDelete={(id)=>onDelete(id)}/>
+          <TableRow expense={data} onUpdate={(updatedExpense)=>onUpdate(updatedExpense)} onDelete={(id)=>onDelete(id)}/>
       
         ))}
       </div>

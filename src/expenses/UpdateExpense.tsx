@@ -1,16 +1,27 @@
-import React,{useState} from 'react'
+import React,{ useState} from 'react'
 import DatePick from './DatePick'
 import { IExpense } from './IExpense';
 import '../css/UpdateExpense.css';
 
-const UpdateExpense=(exp:IExpense)=>{
+
+interface ComponentProps {
+    expense:IExpense
+    onUpdate: (exp: IExpense) => void;
+    
+  }
+  
+const UpdateExpense:React.FC<ComponentProps>=({expense: exp,onUpdate})=>{
   const[category,setCategory]=useState(exp.category);
   const[amount,setAmount]=useState(exp.amount);
   const[date,setDate]=useState<Date>(exp.date? new Date(exp.date) : new Date());
 
+const handleOnUpdate=()=>{
+    const updatedExpense:IExpense={ _id: exp._id, date, category, amount}
+    onUpdate(updatedExpense)
+}
+
 return(        
 <div>
-    <form>
     <div className="row">
         <div className="column">
           <div className="edit-date"><DatePick onChange={(date)=>setDate(date)} value={date}/></div>
@@ -31,7 +42,9 @@ return(
             <div></div>
         </div>
     </div>
-    </form>
+    <div className="row">
+    <div className="btn-save"><button onClick={()=>handleOnUpdate()}>Save</button></div>
+    </div>
 </div>
     )
 }

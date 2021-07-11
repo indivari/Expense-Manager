@@ -60,13 +60,35 @@ const ExpensesContainer = () => {
 
   }
 
+  const handleOnUpdate=async(updatedExpense:IExpense):Promise<void>=>{
+
+    const response = await fetch(`http://localhost:3000/api/expenses/${updatedExpense._id}`, {
+      method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+      mode: 'cors', // no-cors, *cors, same-origin
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      redirect: 'follow', // manual, *follow, error
+      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify(updatedExpense) // body data type must match "Content-Type" header
+    });
+    const editedExpense = await response.json();
+    console.log(editedExpense) 
+
+    const newExpenses = [ ...expenses, editedExpense]
+    setExpenses(newExpenses)
+  }
+
   return (
     <>
       <div>
         <div className="expenses">
           <h2>Recent Expenses</h2>
         </div>
-        { expenses !== undefined? <ExpenseTable exp={expenses} onDelete={(id)=>handleOnDelete(id)}/>: <b>data not loaded</b> }
+        { expenses !== undefined? <ExpenseTable exp={expenses} onUpdate={(updatedExpense)=>handleOnUpdate(updatedExpense)} onDelete={(id)=>handleOnDelete(id)}/>: <b>data not loaded</b> }
       </div>
       <div className="footer">
         <PrimaryButton label="Add" onClick={handleAddItem}/>
