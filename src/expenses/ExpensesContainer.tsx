@@ -5,6 +5,12 @@ import { IExpense } from './IExpense'
 import ExpenseTable from './ExpenseTable'
 import InputExpense from './InputExpense'
 
+interface ExpensesContextType {
+  expenses: IExpense[];
+}
+
+export const ExpensesContext = React.createContext<ExpensesContextType>({expenses:[]})
+
 
 const ExpensesContainer = () => {
   const [showInputForm, setShowInputForm] = useState(false)
@@ -83,12 +89,12 @@ const ExpensesContainer = () => {
   }
 
   return (
-    <>
+    <ExpensesContext.Provider value={{expenses}}>
       <div>
         <div className="expenses">
           <h2>Recent Expenses</h2>
         </div>
-        { expenses !== undefined? <ExpenseTable exp={expenses} onUpdate={(updatedExpense)=>handleOnUpdate(updatedExpense)} onDelete={(id)=>handleOnDelete(id)}/>: <b>data not loaded</b> }
+        { expenses !== undefined? <ExpenseTable onUpdate={(updatedExpense)=>handleOnUpdate(updatedExpense)} onDelete={(id)=>handleOnDelete(id)}/>: <b>data not loaded</b> }
       </div>
       <div className="footer">
         <PrimaryButton label="Add" onClick={handleAddItem}/>
@@ -99,7 +105,7 @@ const ExpensesContainer = () => {
           <InputExpense onSave={handleOnSave} />
         </div>
       )}
-    </>
+      </ExpensesContext.Provider>
   )
 }
 

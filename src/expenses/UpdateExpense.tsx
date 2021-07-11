@@ -10,13 +10,13 @@ interface ComponentProps {
     
   }
   
-const UpdateExpense:React.FC<ComponentProps>=({expense: exp,onUpdate})=>{
-  const[category,setCategory]=useState(exp.category);
-  const[amount,setAmount]=useState(exp.amount);
-  const[date,setDate]=useState<Date>(exp.date? new Date(exp.date) : new Date());
+const UpdateExpense:React.FC<ComponentProps>=({expense,onUpdate})=>{
+  const[category,setCategory]=useState(expense.category);
+  const[amount,setAmount]=useState(expense.amount);
+  const[date,setDate]=useState<Date>(expense.date? new Date(expense.date) : new Date());
 
 const handleOnUpdate=()=>{
-    const updatedExpense:IExpense={ _id: exp._id, date, category, amount}
+    const updatedExpense:IExpense={ _id: expense._id, date, category, amount}
     onUpdate(updatedExpense)
 }
 

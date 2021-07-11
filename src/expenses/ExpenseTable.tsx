@@ -1,14 +1,20 @@
 import React from 'react'
 import TableRow from './TableRow'
 import { IExpense } from './IExpense'
+import { useContext } from 'react'
+import { ExpensesContext } from './ExpensesContainer'
 
 
 interface ComponentProps {
   onDelete: (id: string|undefined) => void;
   onUpdate:(updatedExpense:IExpense)=>void;
-  exp:IExpense[]
+ 
 }
-const ExpenseTable:React.FC<ComponentProps> = ({exp,onDelete,onUpdate}) => {
+
+
+const ExpenseTable:React.FC<ComponentProps> = ({onDelete,onUpdate}) => {
+  const values=useContext(ExpensesContext)
+  
   return (
     <>
       <div className="expenses-container">
@@ -32,7 +38,7 @@ const ExpenseTable:React.FC<ComponentProps> = ({exp,onDelete,onUpdate}) => {
           </div>
         </div>
 
-        {exp.map((data: IExpense) => (
+        {values.expenses.map((data: IExpense) => (
           <TableRow expense={data} onUpdate={(updatedExpense)=>onUpdate(updatedExpense)} onDelete={(id)=>onDelete(id)}/>
       
         ))}
