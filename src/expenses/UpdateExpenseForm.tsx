@@ -10,7 +10,7 @@ interface ComponentProps {
     
   }
   
-const UpdateExpense:React.FC<ComponentProps>=({expense})=>{
+export const UpdateExpenseForm:React.FC<ComponentProps>=({expense})=>{
   const[category,setCategory]=useState(expense.category);
   const[amount,setAmount]=useState(expense.amount);
   const[date,setDate]=useState<Date>(expense.date? new Date(expense.date) : new Date());
@@ -50,5 +50,3 @@ return(
 </div>
     )
 }
-
-export default UpdateExpense;

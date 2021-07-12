@@ -4,8 +4,7 @@ import '../css/tableRow.css'
 import { IExpense } from './IExpense'
 import { DeleteButton } from '../components/DeleteButton'
 import { UpdateButton } from '../components/UpdateButton'
-import pencilIcon from "../images/pencilIcon.jpg"
-import UpdateExpense from './UpdateExpense'
+import { UpdateExpenseForm } from './UpdateExpenseForm'
 
 interface ComponentProps {
   onDelete: (id: string | undefined) => void;
@@ -13,10 +12,10 @@ interface ComponentProps {
 }
 
 const TableRow: React.FC<ComponentProps> = ({ expense, onDelete }) => {
+  const [isUpdateMode, setIsUpdateMode] = useState(false)
+  
   const { category, amount } = expense;
   const date = expense.date ? new Date(expense.date).toDateString() : "";
-  const [isUpdateMode, setIsUpdateMode] = useState(false)
-
 
   return (
     <div>
@@ -46,7 +45,7 @@ const TableRow: React.FC<ComponentProps> = ({ expense, onDelete }) => {
         </div>}
 
       {isUpdateMode && <div>
-        <UpdateExpense  expense={expense} />
+        <UpdateExpenseForm expense={expense}/>
        </div>}
     </div>
   )

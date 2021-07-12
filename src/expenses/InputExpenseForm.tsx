@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import DatePick from './DatePick'
 import { PrimaryButton } from '../components'
-import { react } from '@babel/types'
 import { IExpense } from './IExpense'
 
 interface ComponentProps {
   onSave: (exp: IExpense) => void;
 }
 
-const InputExpense: React.FC<ComponentProps> = ({ onSave }) => {
+const InputExpenseForm: React.FC<ComponentProps> = ({ onSave }) => {
   const[category,setCategory]=useState("");
   const[amount,setAmount]=useState(0);
   const[date,setDate]=useState<Date>();
@@ -48,4 +47,4 @@ const InputExpense: React.FC<ComponentProps> = ({ onSave }) => {
   )
 }
 
-export default InputExpense
+export default InputExpenseForm

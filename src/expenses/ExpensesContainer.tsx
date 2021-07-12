@@ -3,7 +3,7 @@ import '../css/expenses.css'
 import { PrimaryButton } from '../components'
 import { IExpense } from './IExpense'
 import ExpenseTable from './ExpenseTable'
-import InputExpense from './InputExpense'
+import InputExpenseForm from './InputExpenseForm'
 
 interface ExpensesContextType {
   expenses: IExpense[];
@@ -16,7 +16,6 @@ export const ExpensesContext = React.createContext<ExpensesContextType>({expense
 const ExpensesContainer = () => {
   const [showInputForm, setShowInputForm] = useState(false)
   const[expenses,setExpenses]=useState<IExpense[]>([]);
-  const [updated,setUpdated]=useState(false)
 
   useEffect(() => {
     fetch("http://localhost:3000/api/expenses")
@@ -53,7 +52,7 @@ const ExpensesContainer = () => {
 
   const handleOnDelete=async(id:string|undefined):Promise<void>=>{
     console.log("id received", id)
-    const response=await fetch("http://localhost:3000/api/expenses/"+id,{
+    await fetch("http://localhost:3000/api/expenses/"+id,{
       method:'DELETE',
       mode: 'cors', // no-cors, *cors, same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -103,7 +102,7 @@ const ExpensesContainer = () => {
 
       {showInputForm && (
         <div>
-          <InputExpense onSave={handleOnSave} />
+          <InputExpenseForm onSave={handleOnSave} />
         </div>
       )}
       </ExpensesContext.Provider>

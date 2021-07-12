@@ -1,5 +1,3 @@
-import React from 'react'
-
 export interface IExpense {
   _id?: string
   date?: Date
