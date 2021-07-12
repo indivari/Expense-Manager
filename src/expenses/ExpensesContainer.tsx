@@ -1,103 +1,67 @@
-import React, { useState,useEffect } from 'react'
-import '../css/expenses.css'
-import { PrimaryButton } from '../components'
-import { IExpense } from './IExpense'
-import ExpenseTable from './ExpenseTable'
-import InputExpenseForm from './InputExpenseForm'
+import React, { useState, useEffect } from "react";
+import "../css/expenses.css";
+import { PrimaryButton } from "../components";
+import { IExpense } from "./IExpense";
+import ExpenseTable from "./ExpenseTable";
+import InputExpenseForm from "./InputExpenseForm";
+import { deleteExpense, saveExpense, updateExpense } from "./api";
 
 interface ExpensesContextType {
   expenses: IExpense[];
-  onUpdate?:(expense:IExpense)=>void
+  onUpdate?: (expense: IExpense) => void;
 }
 
-export const ExpensesContext = React.createContext<ExpensesContextType>({expenses:[]})
-
+export const ExpensesContext = React.createContext<ExpensesContextType>({
+  expenses: [],
+});
 
 const ExpensesContainer = () => {
-  const [showInputForm, setShowInputForm] = useState(false)
-  const[expenses,setExpenses]=useState<IExpense[]>([]);
+  const [showInputForm, setShowInputForm] = useState(false);
+  const [expenses, setExpenses] = useState<IExpense[]>([]);
 
   useEffect(() => {
     fetch("http://localhost:3000/api/expenses")
-      .then(res => res.json())
-      .then(expenses => setExpenses(expenses))
-}, [])
+      .then((res) => res.json())
+      .then((expenses) => setExpenses(expenses));
+  }, []);
 
   const handleAddItem = () => {
-    setShowInputForm(true)
-  }
+    setShowInputForm(true);
+  };
 
-  const handleOnSave=async(exp:IExpense):Promise<void> =>{
-    console.log("Data saved",exp)
+  const handleOnSave = async (exp: IExpense): Promise<void> => {
+    const savedExpense = await saveExpense(exp);
+    const newExpenses = [...expenses, savedExpense];
+    setExpenses(newExpenses);
+  };
 
-    const response = await fetch("http://localhost:3000/api/expenses", {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(exp) // body data type must match "Content-Type" header
-    });
-    const savedExpense = await response.json();
-    console.log(savedExpense) 
+  const handleOnDelete = async (id: string | undefined): Promise<void> => {
+    console.log("id received", id);
+    await deleteExpense(id);
+    const filteredArray = expenses.filter((item: IExpense) => item._id !== id);
+    setExpenses(filteredArray);
+  };
 
-    const newExpenses = [ ...expenses, savedExpense]
-    setExpenses(newExpenses)
-  }
-
-  const handleOnDelete=async(id:string|undefined):Promise<void>=>{
-    console.log("id received", id)
-    await fetch("http://localhost:3000/api/expenses/"+id,{
-      method:'DELETE',
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'}
-    })
-
-    const filteredArray=expenses.filter((item:IExpense)=>item._id!==id)
-    setExpenses(filteredArray)
-
-  }
-
-  const handleOnUpdate=async(updatedExpense:IExpense):Promise<void>=>{
-
-    const response = await fetch(`http://localhost:3000/api/expenses/${updatedExpense._id}`, {
-      method: 'PUT', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(updatedExpense) // body data type must match "Content-Type" header
-    });
-    const editedExpense = await response.json();
-    console.log(editedExpense) 
-
-    const newExpenses = [ ...expenses, editedExpense]
-    setExpenses(newExpenses)
-  }
+  const handleOnUpdate = async (expense: IExpense): Promise<void> => {
+    const editedExpense = await updateExpense(expense);
+    const newExpenses = [...expenses, editedExpense];
+    setExpenses(newExpenses);
+  };
 
   return (
-    <ExpensesContext.Provider value={{expenses,onUpdate:handleOnUpdate}}>
+    <ExpensesContext.Provider value={{ expenses, onUpdate: handleOnUpdate }}>
       <div>
         <div className="expenses">
           <h2>Recent Expenses</h2>
         </div>
-        { expenses !== undefined? <ExpenseTable onDelete={(id)=>handleOnDelete(id)}/>: <b>data not loaded</b> }
+        {expenses !== undefined ? (
+          <ExpenseTable onDelete={(id) => handleOnDelete(id)} />
+        ) : (
+          <b>data not loaded</b>
+        )}
       </div>
       <div className="footer">
-        <PrimaryButton label="Add" onClick={handleAddItem}/>
+        <PrimaryButton label="Add" onClick={handleAddItem} />
       </div>
 
       {showInputForm && (
@@ -105,8 +69,8 @@ const ExpensesContainer = () => {
           <InputExpenseForm onSave={handleOnSave} />
         </div>
       )}
-      </ExpensesContext.Provider>
-  )
-}
+    </ExpensesContext.Provider>
+  );
+};
 
-export default ExpensesContainer
+export default ExpensesContainer;
