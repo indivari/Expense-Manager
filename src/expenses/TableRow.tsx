@@ -7,7 +7,7 @@ import { UpdateButton } from '../components/UpdateButton'
 import { UpdateExpenseForm } from './UpdateExpenseForm'
 
 interface ComponentProps {
-  onDelete: (id: string | undefined) => void;
+  onDelete: (id: string|undefined) => void;
   expense: IExpense;
 }
 

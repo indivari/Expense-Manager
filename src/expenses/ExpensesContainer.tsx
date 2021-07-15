@@ -4,6 +4,7 @@ import { PrimaryButton } from '../components'
 import { IExpense } from './IExpense'
 import ExpenseTable from './ExpenseTable'
 import InputExpenseForm from './InputExpenseForm'
+import { deleteExpense, saveExpense,updateExpense } from './api'
 
 interface ExpensesContextType {
   expenses: IExpense[];
@@ -28,62 +29,21 @@ const ExpensesContainer = () => {
   }
 
   const handleOnSave=async(exp:IExpense):Promise<void> =>{
-    console.log("Data saved",exp)
-
-    const response = await fetch("http://localhost:3000/api/expenses", {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(exp) // body data type must match "Content-Type" header
-    });
-    const savedExpense = await response.json();
-    console.log(savedExpense) 
-
+   
+const savedExpense= await saveExpense(exp);
     const newExpenses = [ ...expenses, savedExpense]
     setExpenses(newExpenses)
   }
 
   const handleOnDelete=async(id:string|undefined):Promise<void>=>{
-    console.log("id received", id)
-    await fetch("http://localhost:3000/api/expenses/"+id,{
-      method:'DELETE',
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'}
-    })
-
+    await deleteExpense(id);
     const filteredArray=expenses.filter((item:IExpense)=>item._id!==id)
     setExpenses(filteredArray)
-
   }
 
   const handleOnUpdate=async(updatedExpense:IExpense):Promise<void>=>{
-
-    const response = await fetch(`http://localhost:3000/api/expenses/${updatedExpense._id}`, {
-      method: 'PUT', // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(updatedExpense) // body data type must match "Content-Type" header
-    });
-    const editedExpense = await response.json();
-    console.log(editedExpense) 
-
+     
+    const editedExpense=await updateExpense(updatedExpense)
     const newExpenses = [ ...expenses, editedExpense]
     setExpenses(newExpenses)
   }
