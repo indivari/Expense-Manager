@@ -13,7 +13,41 @@ interface ExpensesContextType {
 
 export const ExpensesContext = React.createContext<ExpensesContextType>({expenses:[]})
 
+interface ExpensesState{
+  expenses:IExpense[];
+}
 
+type ExpensesActions  =
+|{type:"LOAD";expenses:IExpense[]}
+|{type:"UPDATE";expense:IExpense}
+|{type:"ADD";expense:IExpense}
+|{type:"DELETE";id:String};
+
+export const reducer: React.Reducer<ExpensesState,ExpensesActions>=(state:ExpensesState,action:any):ExpensesState=>{
+
+  console.log(action,state);
+
+  switch(action.Type){
+    case "LOAD":
+      return {...state,expenses:action.Expenses};
+      case "ADD":
+        return {...state,expenses:[...state.expenses,action.expense]};
+        case "UPDATE": {
+          const index=state.expenses.findIndex((e)=>e._id===action.expense._id);
+              const expenses=state.expenses;
+              expenses[index]=action.expense;
+              return {...state, expenses};
+        }
+        case "DELETE":{
+          const filteredArray=state.expenses.filter((item:IExpense)=>item._id!==action.id)
+          return {...state, expenses:filteredArray}
+        }
+        default:
+          return state;
+          
+
+  }
+}
 const ExpensesContainer = () => {
   const [showInputForm, setShowInputForm] = useState(false)
   const[expenses,setExpenses]=useState<IExpense[]>([]);
