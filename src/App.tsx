@@ -1,10 +1,10 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import './css/App.css'
-import Dashboard from './dashboard/Dashboard'
-import ExpensesContainer from './expenses/ExpensesContainer'
-import Category from './category/Category'
-import Sidebar from './Sidebar'
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./css/App.css";
+import Dashboard from "./dashboard/Dashboard";
+import ExpensesContainer from "./expenses/ExpensesContainer";
+import Category from "./category/Category";
+import Sidebar from "./Sidebar";
 
 function App() {
   return (
@@ -20,11 +20,14 @@ function App() {
             <Route path="/expenses">
               <ExpensesContainer />
             </Route>
+            <Route path="/category">
+              <Category />
+            </Route>
           </Switch>
         </div>
       </div>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

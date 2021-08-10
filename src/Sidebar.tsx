@@ -1,12 +1,12 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { PrimaryButton } from './components'
-import Dashboard from './dashboard/Dashboard'
+import React from "react";
+import { Link } from "react-router-dom";
+import { PrimaryButton } from "./components";
+import Dashboard from "./dashboard/Dashboard";
 
 const Sidebar = () => {
   return (
     <div className="sidebar">
-      <h2>Expense Manager</h2>
+      <h1>Expense Manager</h1>
       <ul>
         <li>
           <Link to="/dashboard" className="active">
@@ -21,7 +21,7 @@ const Sidebar = () => {
         </li>
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

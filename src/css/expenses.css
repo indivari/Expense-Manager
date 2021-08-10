@@ -29,8 +29,9 @@
   font-weight: bold;
 }
 
-h2 {
+h1 {
   color: rgb(129, 122, 122);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .footer {
   text-align: right;

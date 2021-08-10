@@ -1,19 +1,16 @@
-import React from 'react'
-import TableRow from './TableRow'
-import { IExpense } from './IExpense'
-import { useContext } from 'react'
-import { ExpensesContext } from './ExpensesContainer'
-
+import React from "react";
+import TableRow from "./TableRow";
+import { IExpense } from "./IExpense";
+import { useContext } from "react";
+import { ExpensesContext } from "./ExpensesContainer";
 
 interface ComponentProps {
-  onDelete: (id: string|undefined) => void;
- 
+  onDelete: (id: string | undefined) => void;
 }
 
+const ExpenseTable: React.FC<ComponentProps> = ({ onDelete }) => {
+  const values = useContext(ExpensesContext);
 
-const ExpenseTable:React.FC<ComponentProps> = ({onDelete}) => {
-  const values=useContext(ExpensesContext)
-  
   return (
     <>
       <div className="expenses-container">
@@ -38,11 +35,10 @@ const ExpenseTable:React.FC<ComponentProps> = ({onDelete}) => {
         </div>
 
         {values.expenses.map((data: IExpense) => (
-          <TableRow expense={data} onDelete={(id)=>onDelete(id)}/>
-      
+          <TableRow expense={data} onDelete={(id) => onDelete(id)} />
         ))}
       </div>
     </>
-  )
-}
-export default ExpenseTable
+  );
+};
+export default ExpenseTable;
